@@ -14,6 +14,7 @@ int main() {
     int new_fd;
     int status;
     int bytes_sent;
+    int buff_read;
 
     struct addrinfo *servinfo;
     struct addrinfo hints = {0};
@@ -58,13 +59,15 @@ int main() {
         exit(1);
     }
 
-    char *msg = "Waleed was here!";
-    int len = strlen(msg);
-
-    if((bytes_sent = send(new_fd, msg, len, 0)) == -1){
-        perror("send");
+    char buffer[256];
+    if((buff_read = recv(new_fd, buffer, sizeof(buffer), 0)) == -1){
+        perror("receive");
         exit(1);
     }
+
+    buffer[buff_read] = '\0';
+    printf("Received: %s\n", buffer);
+
 
 
     freeaddrinfo(servinfo);

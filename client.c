@@ -48,15 +48,6 @@ int main() {
         exit(1);
     }
 
-    char buffer[256];
-    if((buff_read = recv(socketfd, buffer, sizeof(buffer), 0)) == -1){
-        perror("receive");
-        exit(1);
-    }
-
-    buffer[buff_read] = '\0';
-    printf("Received: %s\n", buffer);
-
     close(socketfd);
     freeaddrinfo(servinfo);
 }

@@ -41,6 +41,9 @@ int main() {
         exit(1);
     }
 
+    int yes = 1;
+    setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof yes);
+
     if (bind(socketfd, servinfo->ai_addr, servinfo->ai_addrlen) == -1) {
         perror("bind");
         exit(1);
@@ -82,7 +85,7 @@ int main() {
         exit(1);
     }
 
-    int yes = 1;
+    yes = 1;
     setsockopt(backsocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof yes);
 
     if (connect(backsocket, serv2->ai_addr, serv2->ai_addrlen) == -1){
@@ -106,7 +109,7 @@ int main() {
     }
 
     buffer1[buff_read] = '\0';
-    printf("Received: %s\n", buffer1);
+    //printf("Received: %s\n", buffer1);
 
 
     // send to client via the socketfd

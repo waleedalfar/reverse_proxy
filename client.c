@@ -40,6 +40,8 @@ int main() {
         exit(1);
     }
 
+
+
     char *msg = "Waleed was here!";
     int len = strlen(msg);
 
@@ -47,6 +49,17 @@ int main() {
         perror("send");
         exit(1);
     }
+
+
+    // receive from proxy the new string
+    char buffer1[256];
+    if((buff_read = recv(socketfd, buffer1, sizeof(buffer1), 0)) == -1){
+        perror("receive");
+        exit(1);
+    }
+
+    buffer1[buff_read] = '\0';
+    printf("Received: %s\n", buffer1);
 
     close(socketfd);
     freeaddrinfo(servinfo);
